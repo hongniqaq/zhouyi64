@@ -2,7 +2,7 @@
 
 基于 React 实现的数字起卦工具。通过模拟传统的“三钱法”，自动生成本卦与变卦，并结合详细的卦象数据提供事业、经商等维度的深度解析。
 
-🔮欢迎起卦：<zhouyi64.7fc7653e.er.aliyun-esa.net>
+🔮欢迎起卦：[<zhouyi64.7fc7653e.er.aliyun-esa.net>](https://zhouyi64.7fc7653e.er.aliyun-esa.net/?spm=5176.29099518.0.0.3a404a9bSE9JAc)
 
 
 ## 本项目由阿里云ESA提供加速、计算和保护
