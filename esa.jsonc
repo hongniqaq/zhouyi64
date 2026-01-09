@@ -1,9 +1,10 @@
 {
-  "build": {
-    "command": "npm run build",
-    "directory": "build"
-  },
-  "function": {
-    "entry": "src/App.js"
+  "name": "vite-react-template",
+  "entry": "./src/App.js",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "assets": {
+    "directory": "./build",
+    "notFoundStrategy": "singlePageApplication"
   }
 }
