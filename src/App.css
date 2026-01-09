@@ -1,0 +1,338 @@
+/* --- 东方神秘色彩定义 --- */
+:root {
+  --gold-primary: #d4af37;
+  --gold-soft: #b8860b;
+  --bg-deep: #0c0d10;
+  --glass-dark: rgba(255, 255, 255, 0.03);
+  --border-gold: rgba(212, 175, 55, 0.2);
+}
+
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+  font-family: "Microsoft YaHei", "PingFang SC", "Noto Serif SC", serif;
+}
+
+body {
+  background: var(--bg-deep);
+  color: #e2e8f0;
+  overflow: auto;
+  height: auto;
+  min-height: 100vh;
+}
+
+.divine-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+.mystic-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle at 70% 30%, #1a1b26 0%, #0c0d10 100%);
+  z-index: -1;
+  overflow: hidden; /* 防止星星超出边缘 */
+}
+
+/* 使用伪元素制作星星 */
+.mystic-bg::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  /* 制作多颗星星：x轴 y轴 模糊距离 颜色 */
+  box-shadow:
+    20vw 30vh 1px #fff,
+    40vw 10vh 2px #fff,
+    60vw 50vh 1px #fff,
+    80vw 80vh 2px #fff,
+    15vw 70vh 1px #fff,
+    90vw 20vh 1px #fff;
+
+  animation: twinkle 4s infinite ease-in-out;
+}
+@keyframes twinkle {
+  /* 0% 到 20% 以及 80% 到 100% 保持暗淡或隐形 */
+  0%, 20%, 80%, 100% {
+    opacity: 0.1;
+  }
+  /* 只有在中间极短的时间内达到最亮 */
+  50% {
+    opacity: 1;
+  }
+}
+
+
+
+
+/* --- 导航栏 --- */
+.navbar {
+  padding: 2rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-gold);
+}
+
+.logo {
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.logo span { color: var(--gold-primary); margin-left: 8px; }
+
+.step-indicator {
+  font-size: 0.9rem;
+  color: var(--gold-soft);
+  background: rgba(184, 134, 11, 0.1);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+/* --- 主布局：左右对分 --- */
+.divine-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3rem 8%;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* --- 左侧：硬币投掷区 --- */
+.toss-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.coin-stage {
+  display: flex;
+  gap: 30px;
+  perspective: 1000px;
+}
+
+.coin {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.coin.spinning {
+  animation: flipCoin 0.8s infinite linear;
+}
+
+.side {
+  position: absolute; width: 100%; height: 100%;
+  border-radius: 50%;
+  border: 3px solid var(--gold-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; font-weight: bold;
+  backface-visibility: hidden;
+  background: radial-gradient(circle, #2c2d33, #16171d);
+  color: var(--gold-primary);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+}
+
+.back { transform: rotateY(180deg); color: #fff; border-color: #fff; opacity: 0.8; }
+
+@keyframes flipCoin {
+  0% { transform: rotateY(0) rotateX(0); }
+  100% { transform: rotateY(720deg) rotateX(360deg); }
+}
+
+/* --- 按钮样式 --- */
+.divine-btn {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-soft));
+  color: #000;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.divine-btn:hover:not(:disabled) {
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+}
+
+.divine-btn:disabled {
+  background: #333; color: #666; cursor: not-allowed;
+}
+
+.reset-btn {
+  background: transparent;
+  border: 1px solid var(--border-gold);
+  color: var(--gold-soft);
+  padding: 8px 20px;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+/* --- 右侧：卦象记录区 --- */
+.hexagram-display {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.gua-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: var(--glass-dark);
+  padding: 2.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-gold);
+  min-height: 380px;
+}
+
+.yao-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.yao-symbol {
+  font-size: 1.8rem;
+  letter-spacing: 8px;
+  font-weight: 900;
+}
+
+/* 四象特殊色彩 */
+.change { color: var(--gold-primary); text-shadow: 0 0 15px var(--gold-primary); }
+.static { color: #cbd5e1; opacity: 0.9; }
+.empty { color: #334155; }
+
+/* 结果卡片 */
+.result-card {
+  background: rgba(212, 175, 55, 0.05);
+  border-left: 4px solid var(--gold-primary);
+  padding: 1.5rem;
+  animation: fadeIn 1s forwards;
+}
+
+.result-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px; color: var(--gold-primary);
+  font-weight: bold;
+}
+
+.advice { line-height: 1.6; font-size: 0.95rem; opacity: 0.9; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+/* 响应式调整 */
+@media (max-width: 900px) {
+  .divine-grid { grid-template-columns: 1fr; gap: 2rem; overflow-y: auto; }
+  .coin-stage { gap: 15px; }
+}
+.gua-structure {
+  display: flex;
+  gap: 15px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.structure-item {
+  background: rgba(212, 175, 55, 0.15);
+  padding: 4px 12px;
+  border-left: 3px solid #d4af37;
+  color: #d4af37;
+}
+
+.change-gua {
+  margin-top: 15px;
+  border-style: dashed; /* 变卦用虚线边框区分 */
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.change-hint {
+  font-size: 0.8rem;
+  color: #888;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.result-display-area {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.footer-tip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 3rem;       /* 增加与上方卦象的距离 */
+  margin-bottom: 5rem;    /* 核心：在页面最底部留出充足的留白 */
+  padding: 20px;
+
+  color: var(--gold-soft);
+  background: rgba(184, 134, 11, 0.05);
+  border: 1px solid var(--border-gold);
+}
+.detailed-analysis {
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(212, 175, 55, 0.2);
+}
+
+.analysis-item {
+  margin-bottom: 12px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.analysis-item label {
+  color: #d4af37;
+  font-weight: bold;
+  margin-right: 8px;
+  display: block;
+}
+
+.analysis-item span {
+  color: #cccccc;
+}
+
+.level-tag {
+  font-size: 0.75rem;
+  background: rgba(212, 175, 55, 0.2);
+  color: #d4af37;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+.xiang-yue {
+  font-style: italic;
+  color: #aaa;
+  font-size: 0.95rem;
+  margin: 10px 0;
+  color: #d4af37;
+}
+
+.result-scroll {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* 滚动条美化 */
+.result-scroll::-webkit-scrollbar { width: 4px; }
+.result-scroll::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 2px; }

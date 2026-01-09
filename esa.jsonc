@@ -1,0 +1,9 @@
+{
+  "build": {
+    "command": "npm run build",
+    "directory": "build"
+  },
+  "function": {
+    "entry": "worker.js" // 关键：指定函数入口文件
+  }
+}
